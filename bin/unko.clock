@@ -101,6 +101,7 @@ ${THIS_CMD} -- print unko digital clock.
 
 USAGE
     ${THIS_CMD}
+    ${THIS_CMD} -l|--loop
     ${THIS_CMD} -h|--help
     ${THIS_CMD} -v|--version
 
@@ -115,6 +116,7 @@ EOS
 }
 
 main() {
+  local LOOP=""
   for arg in "${@}"; do
     case "${arg}" in
     -h | --help)
@@ -125,14 +127,25 @@ main() {
       echo "${THIS_CMD} -- v${VERSION}"
       return 0
       ;;
+    -l | --loop)
+      LOOP=true
+      ;;
     *)
       break
       ;;
     esac
   done
-
-  args="$(gen_args_for_paste "$(get_date)")"
-  eval "paste -d ' ' ${args[*]}"
+  if [ ! "$LOOP" = true ]; then
+    args="$(gen_args_for_paste "$(get_date)")"
+    eval "paste -d ' ' ${args[*]}" | sed 1d
+  else
+    while :; do
+      args="$(gen_args_for_paste "$(get_date)")"
+      eval "paste -d ' ' ${args[*]}" | sed 1d
+      sleep 1s
+      echo -ne '\e[5F\e[J'
+    done
+  fi
 }
 
 get_seg() {
