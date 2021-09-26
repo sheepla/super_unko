@@ -71,6 +71,7 @@ Commands
 | unko.king     | Build your king shift tower. |
 | unko.fizzbuzz | No need to implement FizzBuzz. |
 | unko.ping     | Ping the 💩 domain. |
+| unko.clock    | Display 💩 digital clock. |
 | unko.date     | TBD |
 | unko.awk      | TBD |
 | unko.xargs    | TBD |
