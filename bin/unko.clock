@@ -165,12 +165,6 @@ get_seg() {
   done
 }
 
-gen_args() {
-  for n in "${@}"; do
-    echo -n " <(get_seg ${n})"
-  done
-}
-
 get_date() {
   date +"%H:%M:%S" | grep -o .
 }
